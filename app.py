@@ -28,7 +28,6 @@ def index():
 
 
 if __name__ == "__main__":
-    KeyURL = Conversion()
     App.run(port=3000)
     
 
