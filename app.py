@@ -14,6 +14,11 @@ load_dotenv()
 
 App=Flask(__name__)
 
+@App.route('/GetRestResponce',methods=['POST'])
+def getResponce():
+    pass
+    #this is where we are going to get the request command and then return the json responce 
+    
 
 
     
