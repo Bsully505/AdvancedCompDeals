@@ -15,9 +15,13 @@ load_dotenv()
 
 App=Flask(__name__)
 
-@App.route('/GetRestResponce',methods=['POST'])
+@App.route('/GetRestResponce',methods=['GET'])
 def getResponce():
-    pass
+    headers = { 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Mobile Safari/537.36'}
+    #req = requests.request(url='https://developer.woot.com/feed/Wootoff?page=1',method='get',headers= headers)
+    req = requests.get('https://dealsea.com/search?search_mode=Deals&q=phone',headers= headers)
+    return req.text
+    
     #this is where we are going to get the request command and then return the json responce 
     
 
