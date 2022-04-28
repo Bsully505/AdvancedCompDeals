@@ -1,81 +1,18 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title> Handy Words</title>
-        
-    </head>
-    
-    <body>
-        
-        
-        <p id="res">Select which you want translated </p>
-        <button id = "Clicky" onclick = "myFunction()" type="button">Word</button>
-        <button id = "Update" onclick = "Update()" type="button">Phase</button>
-        <fieldset>
-            <label>Insert your text here to be translated: </label>      
-            <input id = "word" size=50 height=80></input>
-            <br></br>
-            <label for="phrases">Choose a phrase:</label>
-            <select name="Common phrase" id="phrase" onformchange="myFunction()">
-                <option value="how are you">How are you?</option>
-                <option value="How is the weather?">How is the weather?</option>
-                <option value="Do you need help?">Do you need help?</option>
-                <option value="Are we there yet?">Are we there yet?</option>
-            </select>
-        </fieldset>
+<body>
 
-       
+<h2>HOT NEW DEALS!!!</h2>
 
-        
+<form action="/GetRestResponse">
+  <label for="keyWord">Search:</label><br>
+  <input type="text" id="keyWord" name="keyWord" value="bitch"><br>
+  <label for="time">Minutes:</label><br>
+  <input type="number" id="time" name="time" value="1"><br><br>
+  <input type="submit" value="Submit">
+</form>
 
+<p>If you click the "Submit" button, the form-data will be sent to ***insert whatever we decide here***.</p>
 
-        
-
-        <h1>
-            Results:
-            
-        </h1>
-        
-        <img id = 'Results' src='https://media0.giphy.com/media/26FLgm33ve3iUexZC/giphy.gif?cid=790b7611f3ec61ce1016d81b6689aceace595ec079fb4258&rid=giphy.gif&ct=g' alt=""  width="250" />
-        
-    
-        
-      
-        <script>
-
-
-
-           
-            function myFunction(){
-                let selection = document.getElementById("phrase").value;
-                //idea is to get the word from id=word and then spell check it with the python library then send it to the conversion to get the url
-                console.log(selection)//prints out how are you
-
-                let res = fetch('FetchURL',{method:'POST', headers:{'Content-Type': 'application/json'},body:JSON.stringify({URL:selection})});
-                document.getElementById("Results").src = res;
-               
-                return 200
-
-            }
-            function Update(){
-              
-            }
-
-            function updateSender(){
-
-
-            }
-            function updateText(){
-                
-                
-                    
-
-            }
-
-          
-        </script> 
-    </body>
+</body>
 </html>
-
-
