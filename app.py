@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import json
 import requests
 from html.parser import HTMLParser
+from bs4 import BeautifulSoup
 
 
 
@@ -47,6 +48,15 @@ def CallAPI(query, startIndex):
     headers = { 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Mobile Safari/537.36'}
     req = requests.get(f'https://dealsea.com/search?search_mode=Deals&q={query}&n={startIndex}',headers= headers)
     return req
+
+
+def printDeals(res):
+    res2 = BeautifulSoup(res.text,'html.parser')
+    val = BeautifulSoup((res2.find(id='fp-deals').text),'html.parser').contents[0].split('\n\n')
+    for vaz in val: 
+        if(vaz.split(' ')[0]!='(Expired)'):
+            print(vaz)
+            print()
 
     
 
