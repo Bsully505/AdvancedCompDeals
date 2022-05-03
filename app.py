@@ -22,7 +22,7 @@ def getResponse():
     query = request.args.get('keyWord')
     Time = request.args.get('time')
     callResponse = CallAPI(query,10)
-    res = ParseHTML(callResponse.text)
+    res = ParseHTML(callResponse)
     #parse req.text and then send back 
     return res
     
@@ -33,8 +33,8 @@ def getResponse():
 def ParseHTML(str):
     # use this library to parse out the desired items HTMLParser 
     # and then return the html 
-    reader = HTMLParser()
-    reader.feed(str)
+    printDeals(str)
+    
     return str
 
 
@@ -55,10 +55,12 @@ def printDeals(res):
     prinres = {}
     res2 = BeautifulSoup(res.text,'html.parser')
     val = BeautifulSoup((res2.find(id='fp-deals').text),'html.parser').contents[0].split('\n\n')
+    val = val[2:]
     for vaz in val: 
         if(vaz.split(' ')[0]!='(Expired)'):
             prinres+=vaz.split('\n')[0]
             print(prinres)
+    return prinres
             
             
 def GetNextURL(res):
