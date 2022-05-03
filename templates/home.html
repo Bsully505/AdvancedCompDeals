@@ -4,13 +4,13 @@
 
 <h2>HOT NEW DEALS!!!</h2>
 
-<form action="/GetRestResponse">
+
   <label for="keyWord">Search:</label><br>
   <input type="text" id="keyWord" name="keyWord" value=""><br>
   <label for="time">Minutes:</label><br>
   <input type="number" id="time" name="time" value="1"><br><br>
-  <input type="submit" value="Submit">
-</form>
+  <button id = "Submit" onclick = "updateText()" type="button">Send</button>
+
 
 <p>If you click the "Submit" button, the form-data will be sent to ***insert whatever we decide here***.</p>
 
@@ -34,6 +34,18 @@
                 mainContainer.appendChild(div);
             }
         }
+
+        function updateText(){
+
+                fetch('SetText',
+                    {method:'Post',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body:JSON.stringify({Query: document.getElementById("keyWord").value, Time: document.getElementById("time").value })
+                })
+            }
+
     </script>
 
 
