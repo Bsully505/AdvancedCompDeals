@@ -16,7 +16,7 @@
 
     <div id="myData"></div>
     <script>
-        fetch('data.json')
+        fetch('/data')
             .then(function (response) {
                 return response.json();
             })
@@ -28,9 +28,9 @@
             });
         function appendData(data) {
             var mainContainer = document.getElementById("myData");
-            for (var i = 1; i < data.length; i++) {
+            for (var i = 0; i < data[1].length; i++) {
                 var div = document.createElement("div");
-                div.innerHTML = 'New Deal: ' + data[i].deal;
+                div.innerHTML = 'New Deal: ' + data[1][i].deal;
                 mainContainer.appendChild(div);
             }
         }

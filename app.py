@@ -17,15 +17,41 @@ load_dotenv()
 App=Flask(__name__)
 
 #this should be returning a json with the x amount of 
-@App.route('/GetRestResponse',methods=['GET'])
-def getResponse():
+@App.route('/GetRestResponseOld',methods=['GET'])
+def getResponseOld():
     query = request.args.get('keyWord')
     Time = request.args.get('time')
-    callResponse = CallAPI(query,10)
+    callResponse = CallAPI(query,0)
+    res = ParseHTML(callResponse)
+    #parse req.text and then send back 
+    return res
+
+@App.route('/GetRestResponse',methods=['POST'])
+def getResponse():
+    postRes = request.get_json()
+    query = postRes['query']
+    Time = postRes['time']
+    callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     #parse req.text and then send back 
     return res
     
+    
+@App.route('/GetQuery')
+def GetDataFromFile1():
+    FileOpener = open('data.json')
+    text = json.load(FileOpener)
+    return str(text[0]['Query'])
+
+
+
+@App.route('/GetTime')
+def GetDataFromFile2():
+    FileOpener = open('data.json')
+    text = json.load(FileOpener)
+    return str(text[0]['Time'])
+
+
     #this is where we are going to get the request command and then return the json responce 
     
 
@@ -54,15 +80,16 @@ def CallAPI(query, startIndex):
 def printDeals(res):
     prinres = []
     res2 = BeautifulSoup(res.text,'html.parser')
-    val = BeautifulSoup((res2.find(id='fp-deals').text),'html.parser').contents[0].split('\n\n')
+    val = res2.find(id='fp-deals').text.split("\n\n")
     val = val[2:]
     for vaz in val: 
         if(vaz.split(' ')[0]!='(Expired)'):
             prinres.append(vaz.split('\n')[0])
-    return str(prinres)
-            
-            
+    json_String = json.dumps(prinres)
+    return json_String
+      
 def GetNextURL(res):
+            
     res2 = BeautifulSoup(res.text,'html.parser')
     res3 = res2.find_all('a')
     #find all('a') on 12 index is the next parameter 
@@ -79,12 +106,23 @@ def postOntoJson(res):
     pass
     #input into json a list 
 
-    
 
+@App.route('/data')
+def GetData():
+    val =open("data.json")
+    jInter = json.load(val)
+    val.close()
+    return json.dumps(jInter)
 
 
 @App.route('/')
 def index():
+    
+    return render_template('home.html')
+
+
+@App.route('/s')
+def indexs():
     
     return render_template('home.html')
 
