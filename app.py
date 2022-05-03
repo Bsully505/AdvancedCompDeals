@@ -16,6 +16,7 @@ load_dotenv()
 
 App=Flask(__name__)
 
+#this should be returning a json with the x amount of 
 @App.route('/GetRestResponse',methods=['GET'])
 def getResponse():
     query = request.args.get('keyWord')
@@ -51,12 +52,31 @@ def CallAPI(query, startIndex):
 
 
 def printDeals(res):
+    prinres = {}
     res2 = BeautifulSoup(res.text,'html.parser')
     val = BeautifulSoup((res2.find(id='fp-deals').text),'html.parser').contents[0].split('\n\n')
     for vaz in val: 
         if(vaz.split(' ')[0]!='(Expired)'):
-            print(vaz)
-            print()
+            prinres+=vaz.split('\n')[0]
+            print(prinres)
+            
+            
+def GetNextURL(res):
+    res2 = BeautifulSoup(res.text,'html.parser')
+    res3 = res2.find_all('a')
+    #find all('a') on 12 index is the next parameter 
+    if('Next' in res3[12]):
+        NextURL = res3[12]['href']            
+        return (NextURL)
+    
+def CallNextPage(query):
+    headers = { 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Mobile Safari/537.36'}
+    req = requests.get(f'https://dealsea.com/search?{query}',headers= headers)
+    return req
+
+def postOntoJson(res):
+    pass
+    #input into json a list 
 
     
 
