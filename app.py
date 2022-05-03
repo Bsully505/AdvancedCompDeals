@@ -33,7 +33,7 @@ def getResponse():
 def ParseHTML(str):
     # use this library to parse out the desired items HTMLParser 
     # and then return the html 
-    printDeals(str)
+    str = printDeals(str)
     
     return str
 
@@ -52,15 +52,14 @@ def CallAPI(query, startIndex):
 
 
 def printDeals(res):
-    prinres = {}
+    prinres = []
     res2 = BeautifulSoup(res.text,'html.parser')
     val = BeautifulSoup((res2.find(id='fp-deals').text),'html.parser').contents[0].split('\n\n')
     val = val[2:]
     for vaz in val: 
         if(vaz.split(' ')[0]!='(Expired)'):
-            prinres+=vaz.split('\n')[0]
-            print(prinres)
-    return prinres
+            prinres.append(vaz.split('\n')[0])
+    return str(prinres)
             
             
 def GetNextURL(res):
