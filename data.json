@@ -1,19 +1,11 @@
-[{
-    "Query": "Phone",
-     "Time": 1
-    
-    
-},
 [
-    {
-       
-        "deal":"Routers"
-    },
-    {
-        "deal":"Routers"
-    },
-    {   
-        "deal":"Routers"
-    }
-]
+   {
+      "Query": "sax",
+      "Time": "3"
+   },
+   [
+      {
+         "Deals": "No deals were found"
+      }
+   ]
 ]

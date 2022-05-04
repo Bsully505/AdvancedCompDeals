@@ -30,14 +30,14 @@
             var mainContainer = document.getElementById("myData");
             for (var i = 0; i < data[1].length; i++) {
                 var div = document.createElement("div");
-                div.innerHTML = 'New Deal: ' + data[1][i].deal;
+                div.innerHTML = 'New Deal: ' + data[1][i].Deals;
                 mainContainer.appendChild(div);
             }
         }
 
         function updateText(){
 
-                fetch('SetText',
+                fetch('GetRestResponse',
                     {method:'Post',
                     headers:{
                         'Content-Type': 'application/json'
