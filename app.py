@@ -167,19 +167,25 @@ def printDeals(res):
     prinres = []
     i= 0
     url = "test"
+    res4= res
     while(i<5 and len(prinres)<10 and url):
-        res2 = BeautifulSoup(res.text,'html.parser')
+        res2 = BeautifulSoup(res4.text,'html.parser')
         val = res2.find(id='fp-deals').text.split("\n\n")
         val = val[2:]
         for vaz in val: 
             if(vaz.split(' ')[0]!='(Expired)' and len(prinres)<10):
                 prinres.append(vaz.split('\n')[0])
         i=i+1
-        url = GetNextURL(res)
+        url = GetNextURL(res4)
+        #this is happening when it shouldnt be 
         if(url is None):
+            print("short circuit")
             return prinres
-        res= CallNextPage(url)
-        
+        print(url)
+        res4= CallNextPage(url)
+    print(f"i: {i}")
+    print(f"len Prinres: {len(prinres)}")
+    print(f"url: {url}")
     return prinres
       
 def GetNextURL(res):
@@ -190,11 +196,14 @@ def GetNextURL(res):
     if('Next' in res3[12]):
         NextURL = res3[12]['href']            
         return (NextURL)
+    if('Next' in res3[13]):
+        NextURL = res3[13]['href'] 
+        return (NextURL)
     return None
     
 def CallNextPage(query):
     headers = { 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Mobile Safari/537.36'}
-    req = requests.get(f'https://dealsea.com/search?{query}',headers= headers)
+    req = requests.get(f'https://dealsea.com/{query}',headers= headers)
     return req
 
 

@@ -16,24 +16,31 @@
 
     <div id="myData"></div>
     <script>
-        fetch('/data')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                appendData(data);
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
+        function Display(){
+           
+            fetch('/data')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    appendData(data);
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+        }
         function appendData(data) {
             var mainContainer = document.getElementById("myData");
+            while(mainContainer.firstChild){
+                mainContainer.removeChild(mainContainer.firstChild);
+            }
             for (var i = 0; i < data[1].length; i++) {
                 var div = document.createElement("div");
                 div.innerHTML = 'New Deal: ' + data[1][i].Deals;
                 mainContainer.appendChild(div);
             }
-        }
+        
+    }
 
         function updateText(){
 
@@ -43,7 +50,8 @@
                         'Content-Type': 'application/json'
                     },
                     body:JSON.stringify({Query: document.getElementById("keyWord").value, Time: document.getElementById("time").value })
-                })
+                });
+                setTimeout(() => {Display();},5000);
             }
 
     </script>
