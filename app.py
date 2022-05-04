@@ -115,6 +115,19 @@ def GetData():
     return json.dumps(jInter)
 
 
+def editJson(deals):
+    val = open("data.json")
+    jInter = json.load(val)
+    val.close()
+    openval = open("data.json","w")
+    lis=[]
+    for i in deals:
+        lis.append({"deal": i})
+    jInter[1] = lis
+    json.dump(jInter,openval,indent=3)
+    openval.close()
+    return True
+
 @App.route('/')
 def index():
     
