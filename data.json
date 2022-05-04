@@ -1,11 +1,20 @@
 [
    {
-      "Query": "sax",
-      "Time": "3"
+      "Query": "Phone",
+      "Time": 1
    },
    [
       {
-         "Deals": "No deals were found"
+         "deal": "Hello"
+      },
+      {
+         "deal": "darkness"
+      },
+      {
+         "deal": "my old"
+      },
+      {
+         "deal": "enemy"
       }
    ]
 ]
