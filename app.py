@@ -9,15 +9,6 @@ from bs4 import BeautifulSoup
 
 App=Flask(__name__)
 
-#this should be returning a json with the x amount of 
-@App.route('/GetRestResponseOld',methods=['GET'])
-def getResponseOld():
-    query = request.args.get('keyWord')
-    Time = request.args.get('time')
-    callResponse = CallAPI(query,0)
-    res = ParseHTML(callResponse)
-    #parse req.text and then send back 
-    return res
 
 @App.route('/GetRestResponse',methods=['POST'])
 def getResponse():
@@ -175,9 +166,6 @@ def printDeals(res):
             return prinres
         print(url)
         res4= CallNextPage(url)
-    print(f"i: {i}")
-    print(f"len Prinres: {len(prinres)}")
-    print(f"url: {url}")
     return prinres
       
 def GetNextURL(res):
@@ -188,6 +176,7 @@ def GetNextURL(res):
     if('Next' in res3[12]):
         NextURL = res3[12]['href']            
         return (NextURL)
+    #this happens if not in the 
     if('Next' in res3[13]):
         NextURL = res3[13]['href'] 
         return (NextURL)
