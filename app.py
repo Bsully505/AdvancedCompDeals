@@ -1,4 +1,4 @@
-from msilib.schema import File
+
 from flask import Flask,render_template,request
 from dotenv import load_dotenv
 import json
@@ -32,6 +32,8 @@ def getResponse():
     postRes = request.get_json()
     query = postRes['Query']
     Time = postRes['Time']
+    PostQuery(query)
+    PostTime(Time)
     callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     SetDealMethod(res)
@@ -53,11 +55,10 @@ def GetDataFromFile2():
     text = json.load(FileOpener)
     return str(text[0]['Time'])
 
-@App.route('/PostQuery',methods = ['GET'])
-def PostQuery():
+
+def PostQuery(inserter):
     #inserter = request.get_json['Query']
     
-    inserter = request.args.get('Query')
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     FileOpener.close()
@@ -68,11 +69,10 @@ def PostQuery():
     return "Success"
 
 
-@App.route('/PostTime',methods = ['GET'])
-def PostTime():
+
+def PostTime(inserter):
     #inserter = request.get_json['Time']
     
-    inserter = request.args.get('Time')
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     FileOpener.close()
