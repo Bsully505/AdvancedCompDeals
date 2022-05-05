@@ -1,23 +1,35 @@
 [
    {
-      "Query": "water",
+      "Query": "phone",
       "Time": "1"
    },
    [
       {
-         "Deals": "Home Depot - Up to $600 off Select Water Treatment, Air Conditioners, Water Heaters"
+         "Deals": "Wells Fargo Active Cash\u00ae Card: Earn a $200 cash rewards bonus"
       },
       {
-         "Deals": "Peter Thomas Roth Jumbo-Size Retinol Fusion PM Night Serum$99 and more"
+         "Deals": "SAMSUNG Galaxy A53 5G A Series Unlocked 6.5\" FHD Smartphone$350"
       },
       {
-         "Deals": "Whirlpool 28 cu. ft. Side-by-Side Refrigerator with Exterior Ice and Water Dispenser$1299.99"
+         "Deals": "Samsung Offers PriceMatch on upgraded trade-in value"
       },
       {
-         "Deals": "3-Pack Melissa & Doug Water Wow$10"
+         "Deals": "Southwest Rapid Rewards\u00ae Premier Credit Card- Earn 40,000 Bonus Points after purchase"
       },
       {
-         "Deals": "Morton Salt Hard Water Test KitFREE"
+         "Deals": "Southwest Rapid Rewards\u00ae Plus Credit Card- Earn 40,000 Bonus Points after purchase"
+      },
+      {
+         "Deals": "Southwest Rapid Rewards\u00ae Priority Credit Card- Earn 40,000 Bonus Points after purchase"
+      },
+      {
+         "Deals": "Talbots - $10 Off $10.01 + Free Shipping + Extra 60% Off Sale"
+      },
+      {
+         "Deals": "Hotels.com\u00ae Rewards Visa\u00ae Credit Card"
+      },
+      {
+         "Deals": "Wells Fargo ReflectSM Card"
       }
    ]
 ]

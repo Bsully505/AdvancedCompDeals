@@ -1,17 +1,9 @@
 
 from flask import Flask,render_template,request
-from dotenv import load_dotenv
 import json
 import requests
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
-
-
-
-
-# instantiate Slack client
-load_dotenv()
-
 
 
 
