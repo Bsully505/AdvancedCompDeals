@@ -10,7 +10,7 @@
   <label for="time">Minutes:</label><br>
   <input type="number" id="time" name="time" value="1"><br><br>
   <button id = "Submit" onclick = "repeater()" type="button">Send</button>
-  <button id = "Clear" onclick = "StopInteral()" type="button">Stop</button>
+  <button id = "Clear" onclick = "StopInterval()" type="button">Stop</button>
 
 
     <br>
@@ -48,7 +48,7 @@
         
     }
         function repeater(){
-            StopInteral();
+            StopInterval();
             updateText();
             let time = fetch('/GetTime')
             .then(function(response){
@@ -56,12 +56,12 @@
                 })
                     .then(function(timer){
                         var timerV = parseInt(timer[0])
-                        window.interval = setInterval(updateText,timerV*60000);
+                        window.interval = setInterval(updateText,timerV*10000);
                         
                         })
             
         }
-        function StopInteral(){
+        function StopInterval(){
             clearInterval(window.interval)
         }
 

@@ -110,29 +110,21 @@ def SetDealMethod(lis):
     return "Successfully Set Deal"
 
 
-def refreshTimer(time, query): #gets variables from getResponse
+async def refreshTimer(time, query): #gets variables from getResponse
     #short circuits 
     if(Go is False):
         print("Short Circuit")
         return 1
-    asyncio.create_task(DoCall(query,time))
-    loop = asyncio.get_event_loop()
     
-    
-    
-    #await asyncio.sleep(time) #sleeps for number of minutes input by user
+    await asyncio.sleep(time) #sleeps for number of minutes input by user
     #redo stuff from getResponse 
-    #callResponse = CallAPI(query,0)
-    #res = ParseHTML(callResponse)
-    #SetDealMethod(res)
-    #parse req.text and then send back 
-    #return refreshTimer(time, query)
-
-
-async def DoCall(query,time):
     callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     SetDealMethod(res)
+    #parse req.text and then send back 
+    return refreshTimer(time, query)
+
+
 
 @App.route('/AppendDeal',methods=['GET'])
 def AppendDeal():
