@@ -29,20 +29,20 @@
     <div class="container showcase-inner">
       <h1>Hot New Deals!!</h1><br><br>
 
-      <label for="keyWord">Search:</label>
-      <input type="text" id="keyWord" name="keyWord" value=" "><br>
-      <label for="time">Minutes:</label>
-      <input type="number" id="time" name="time" value="1"><br><br>
-      <button id = "Submit" onclick = "updateText()" type="button">Send</button>
+  <label for="keyWord">Search:</label><br>
+  <input type="text" id="keyWord" name="keyWord" value=" "><br>
+  <label for="time">Minutes:</label><br>
+  <input type="number" id="time" name="time" value="1"><br><br>
+  <button id = "Submit" onclick = "repeater()" type="button">Send</button>
+  <button id = "Clear" onclick = "StopInterval()" type="button">Stop</button>
 
-      <br><br><br>
-      <label id="returnText"> </label><br><br><br>
 
-      <div id="myData"></div>
-      <!-- <a href="#" class="btn">Read More</a> -->
-    </div>
-  </header>
-  <script>
+    <br><br>
+  <label id="returnText"> </label><br><br>
+
+    <div id="myData"></div>
+    <script>
+        
         function Display(){
 
             document.getElementById("returnText").innerText = String('Found deals on ' + document.getElementById("keyWord").value + ' on www.dealsea.com');
@@ -71,9 +71,26 @@
             }
 
     }
+        function repeater(){
+            StopInterval();
+            updateText();
+            let time = fetch('/GetTime')
+            .then(function(response){
+                    return response.json();
+                })
+                    .then(function(timer){
+                        var timerV = parseInt(timer[0])
+                        window.interval = setInterval(updateText,timerV*10000);
+                        
+                        })
+            
+        }
+        function StopInterval(){
+            clearInterval(window.interval)
+        }
 
         function updateText(){
-
+               
                 fetch('GetRestResponse',
                     {method:'Post',
                     headers:{
