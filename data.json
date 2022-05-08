@@ -1,11 +1,25 @@
 [
    {
-      "Query": " ball",
+      "Query": " wall",
       "Time": "1"
    },
    [
       {
-         "Deals": "Black Mountain Products Peanut Stability Ball$12.60"
+         "Deals": "Nimble Eco-Friendly WALLY 65W USB-C Dual Wall Charger$25"
+      },
+      {
+         "Deals": "Home Depot - 20% Off coupon with $50 Home Decor Purchase"
+      },
+      {
+         "Deals": "Home Decorators Collection Kerrington 60\" Freestanding Fireplace$199 (50% off) and more"
+      },
+      {
+         "Deals": "Security Tronix Therma Scan Wall Mounted No Contact Thermometer$19"
+      }
+   ],
+   [
+      {
+         "New Deal": "New Ball"
       }
    ]
 ]

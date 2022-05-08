@@ -9,13 +9,16 @@
   <input type="text" id="keyWord" name="keyWord" value=" "><br>
   <label for="time">Minutes:</label><br>
   <input type="number" id="time" name="time" value="1"><br><br>
-  <button id = "Submit" onclick = "updateText()" type="button">Send</button>
+  <button id = "Submit" onclick = "repeater()" type="button">Send</button>
+  <button id = "Clear" onclick = "StopInteral()" type="button">Stop</button>
+
 
     <br>
   <label id="returnText"> </label><br>
 
     <div id="myData"></div>
     <script>
+        
         function Display(){
             
             document.getElementById("returnText").innerText = String('Found deals on ' + document.getElementById("keyWord").value + ' on www.dealsea.com');
@@ -44,9 +47,26 @@
             }
         
     }
+        function repeater(){
+            StopInteral();
+            updateText();
+            let time = fetch('/GetTime')
+            .then(function(response){
+                    return response.json();
+                })
+                    .then(function(timer){
+                        var timerV = parseInt(timer[0])
+                        window.interval = setInterval(updateText,timerV*60000);
+                        
+                        })
+            
+        }
+        function StopInteral(){
+            clearInterval(window.interval)
+        }
 
         function updateText(){
-
+               
                 fetch('GetRestResponse',
                     {method:'Post',
                     headers:{

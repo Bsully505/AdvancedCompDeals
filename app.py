@@ -4,12 +4,14 @@ import json
 import requests
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
+import asyncio
 
 
 
 App=Flask(__name__)
 
-
+global Go
+Go = True
 @App.route('/GetRestResponse',methods=['POST'])
 def getResponse():
     postRes = request.get_json()
@@ -17,6 +19,9 @@ def getResponse():
     Time = postRes['Time']
     PostQuery(query)
     PostTime(Time)
+    
+    
+    #refreshTimer(Time,query)
     callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     SetDealMethod(res)
@@ -36,7 +41,7 @@ def GetDataFromFile1():
 def GetDataFromFile2():
     FileOpener = open('data.json')
     text = json.load(FileOpener)
-    return str(text[0]['Time'])
+    return json.dumps(text[0]['Time'])
 
 
 def PostQuery(inserter):
@@ -64,6 +69,11 @@ def PostTime(inserter):
     json.dump(text,FileEditer,indent=3)
     FileEditer.close()
     return "Success"
+
+def addNewDeals(list):
+    #goal is to create a new call and with that responce check if this call has any new 
+    pass
+    
 
 
 @App.route('/SetDeal',methods=['POST'])
@@ -100,7 +110,29 @@ def SetDealMethod(lis):
     return "Successfully Set Deal"
 
 
+def refreshTimer(time, query): #gets variables from getResponse
+    #short circuits 
+    if(Go is False):
+        print("Short Circuit")
+        return 1
+    asyncio.create_task(DoCall(query,time))
+    loop = asyncio.get_event_loop()
+    
+    
+    
+    #await asyncio.sleep(time) #sleeps for number of minutes input by user
+    #redo stuff from getResponse 
+    #callResponse = CallAPI(query,0)
+    #res = ParseHTML(callResponse)
+    #SetDealMethod(res)
+    #parse req.text and then send back 
+    #return refreshTimer(time, query)
 
+
+async def DoCall(query,time):
+    callResponse = CallAPI(query,0)
+    res = ParseHTML(callResponse)
+    SetDealMethod(res)
 
 @App.route('/AppendDeal',methods=['GET'])
 def AppendDeal():
