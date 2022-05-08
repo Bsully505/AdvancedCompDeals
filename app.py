@@ -29,11 +29,24 @@ def getResponse():
     return "Success"
     
     
+@App.route('/GetRestResponse2',methods=['POST'])
+def getResponse2():
+    postRes = request.get_json()
+    query = postRes['Query']
+    Time = postRes['Time']
+       
+    #refreshTimer(Time,query)
+    callResponse = CallAPI(query,0)
+    res = ParseHTML(callResponse)
+    SetOldDealMethod(res)
+    #parse req.text and then send back 
+    return "Success"
+    
 @App.route('/GetQuery')
 def GetDataFromFile1():
     FileOpener = open('data.json')
     text = json.load(FileOpener)
-    return str(text[0]['Query'])
+    return json.dumps(text[0]['Query'])
 
 
 
@@ -92,7 +105,7 @@ def SetDeal():
     FileEditer.close()
     return "Successfully Set Deal"
 
-
+#sets all of the new documents
 def SetDealMethod(lis):
 
     FileOpener = open('data.json')
@@ -104,12 +117,37 @@ def SetDealMethod(lis):
         ret.append({"Deals":val})
     if(len(lis)==0):
         ret.append({"Deals":"No deals were found"})
-    text[1] = ret
+    text[2] = ret
+    text[1] = []
     json.dump(text, FileEditer,indent=3)
     FileEditer.close()
     return "Successfully Set Deal"
 
+#appends all new deals to old deals and checks if any of the new deals are unique
+def SetOldDealMethod(lis):
 
+    FileOpener = open('data.json')
+    text = json.load(FileOpener)
+    FileOpener.close()
+    FileEditer = open('data.json','w')
+    ret=text[1]
+    newRes = []
+    for val in text[2]:
+        ret.append({"Deals":val['Deals']})
+        lis.remove(val['Deals'])
+    if(len(lis)==0):
+        ret.append({"Deals":"No deals were found"})
+    else:
+        for val in lis:
+            newRes.append({"Deals":val})
+        
+    text[1] = ret
+    text[2] = newRes
+    json.dump(text, FileEditer,indent=3)
+    FileEditer.close()
+    return "Successfully Set Deal"
+
+#not using 
 async def refreshTimer(time, query): #gets variables from getResponse
     #short circuits 
     if(Go is False):

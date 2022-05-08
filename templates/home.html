@@ -5,10 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static' ,filename='styles/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static' ,filename='styles/style2.css') }}">
   <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static' ,filename='styles/css/menu.css') }}"> -->
   <title>Deal Seaker</title>
 </head>
+<style>
+    .btn-group .button {
+      background-color: #555555;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  
+    .btn-group .button:hover {
+      background-color: #000000;
+    }
+    </style>
+  
 <body>
   <div class="menu-wrap">
     <input type="checkbox" class="toggler">
@@ -30,11 +48,13 @@
       <h1>Hot New Deals!!</h1><br><br>
 
   <label for="keyWord">Search:</label><br>
-  <input type="text" id="keyWord" name="keyWord" value=" "><br>
+  <input type="text" id="keyWord" name="keyWord" value=""><br>
   <label for="time">Minutes:</label><br>
   <input type="number" id="time" name="time" value="1"><br><br>
-  <button id = "Submit" onclick = "repeater()" type="button">Send</button>
-  <button id = "Clear" onclick = "StopInterval()" type="button">Stop</button>
+  <div class="btn-group">
+    <button class="button" id = "Submit" onclick = "repeater()">Send</button> 
+    <button class="button" id = "Clear" onclick = "StopInterval()">Stop</button>
+    </div>
 
 
     <br><br>
@@ -44,9 +64,12 @@
     <script>
         
         function Display(){
+            fetch('/GetQuery').then(function(response){
+                return response.json();}).then(function Disp(data){
+                    document.getElementById("returnText").innerText = String('Found deals on ' + String(data) + ' on www.dealsea.com');
+                });
 
-            document.getElementById("returnText").innerText = String('Found deals on ' + document.getElementById("keyWord").value + ' on www.dealsea.com');
-            fetch('/data')
+                fetch('/data')
                 .then(function (response) {
                     return response.json();
                 })
@@ -56,16 +79,35 @@
                 .catch(function (err) {
                     console.log('error: ' + err);
                 });
+            
+            
+            
         }
         function appendData(data) {
             var mainContainer = document.getElementById("myData");
             while(mainContainer.firstChild){
                 mainContainer.removeChild(mainContainer.firstChild);
             }
+            if(data[2].length==0){
+                var div = document.createElement("div");
+                
+                div.innerHTML = ("No New Deals").fontcolor("red");
+               
+
+                mainContainer.appendChild(div);
+            }
+            for (var i = 0; i < data[2].length; i++) {
+                var div = document.createElement("div");
+               
+                div.innerHTML = (data[2][i].Deals).fontcolor("yellow");
+               
+                mainContainer.appendChild(div);
+            }
+            
             for (var i = 0; i < data[1].length; i++) {
                 var div = document.createElement("div");
-
-                div.innerHTML = (data[1][i].Deals);
+                
+                div.innerHTML = (data[1][i].Deals).fontcolor("white");
 
                 mainContainer.appendChild(div);
             }
@@ -80,26 +122,41 @@
                 })
                     .then(function(timer){
                         var timerV = parseInt(timer[0])
-                        window.interval = setInterval(updateText,timerV*10000);
+                        window.interal = setInterval(updateText2,timerV*60000);
                         
                         })
             
         }
         function StopInterval(){
-            clearInterval(window.interval)
+            clearInterval(window.interal)
         }
 
         function updateText(){
-               
-                fetch('GetRestResponse',
-                    {method:'Post',
-                    headers:{
-                        'Content-Type': 'application/json'
-                    },
-                    body:JSON.stringify({Query: document.getElementById("keyWord").value, Time: document.getElementById("time").value })
-                });
-                setTimeout(() => {Display();},5000);
+            fetch('GetRestResponse',
+                {method:'Post',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({Query: document.getElementById("keyWord").value, Time: document.getElementById("time").value })
+            });
+            setTimeout(() => {Display();},5000);
             }
+
+            function updateText2(){
+                fetch('/GetQuery').then(function(response){
+                return response.json();}).then(function Disp(data){
+                    fetch('GetRestResponse2',
+                {method:'Post',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({Query: data , Time: document.getElementById("time").value })
+            });
+                });
+           
+            setTimeout(() => {Display();},5000);
+            }
+        
 
     </script>
 </body>
