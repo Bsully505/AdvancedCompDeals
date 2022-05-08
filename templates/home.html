@@ -1,9 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static' ,filename='styles/style.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static' ,filename='styles/css/menu.css') }}"> -->
+  <title>Deal Seaker</title>
+</head>
 <body>
+  <div class="menu-wrap">
+    <input type="checkbox" class="toggler">
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="credit">Credits</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>HOT NEW DEALS!!!</h2>
-
+  <header class="showcase">
+    <div class="container showcase-inner">
+      <h1>Hot New Deals!!</h1><br><br>
 
   <label for="keyWord">Search:</label><br>
   <input type="text" id="keyWord" name="keyWord" value=" "><br>
@@ -13,14 +37,14 @@
   <button id = "Clear" onclick = "StopInterval()" type="button">Stop</button>
 
 
-    <br>
-  <label id="returnText"> </label><br>
+    <br><br>
+  <label id="returnText"> </label><br><br>
 
     <div id="myData"></div>
     <script>
         
         function Display(){
-            
+
             document.getElementById("returnText").innerText = String('Found deals on ' + document.getElementById("keyWord").value + ' on www.dealsea.com');
             fetch('/data')
                 .then(function (response) {
@@ -40,12 +64,12 @@
             }
             for (var i = 0; i < data[1].length; i++) {
                 var div = document.createElement("div");
-                
-                div.innerHTML = ('New Deal: ' + data[1][i].Deals);
-                
+
+                div.innerHTML = (data[1][i].Deals);
+
                 mainContainer.appendChild(div);
             }
-        
+
     }
         function repeater(){
             StopInterval();
@@ -78,7 +102,5 @@
             }
 
     </script>
-
-
 </body>
 </html>

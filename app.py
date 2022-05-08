@@ -240,6 +240,11 @@ def index():
     
     return render_template('home.html')
 
+@App.route('/credit')
+def credit():
+    
+    return render_template('credit.html')
+
 
 
 
