@@ -64,21 +64,23 @@
     <script>
         
         function Display(){
+
+            fetch('/data')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
             fetch('/GetQuery').then(function(response){
                 return response.json();}).then(function Disp(data){
                     document.getElementById("returnText").innerText = String('Found deals on ' + String(data) + ' on www.dealsea.com');
                 });
 
-                fetch('/data')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    appendData(data);
-                })
-                .catch(function (err) {
-                    console.log('error: ' + err);
-                });
+            
             
             
             

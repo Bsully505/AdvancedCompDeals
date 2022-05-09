@@ -132,13 +132,41 @@ def SetOldDealMethod(lis):
     FileEditer = open('data.json','w')
     ret=text[1]
     newRes = []
+    
+    #for val in lis:
+        #print(str(len(val)))
+        #print(type(val))
+        
+    #print()
+    
+    #for val in text[2]:
+        
+        #print(str(len(val['Deals'])))
+        #print(type(val['Deals']))
+        
+    OldDeals =[]
+    for val in text[1]:
+        if(val['Deals'] != "No deals were found"):
+            OldDeals.append(val['Deals'])
+            try:
+                lis.remove(val['Deals'])
+            except:
+                print("Exception")
+        
+    
     for val in text[2]:
-        ret.append({"Deals":val['Deals']})
-        lis.remove(val['Deals'])
+        if(val['Deals']not in OldDeals and val['Deals'] != "No deals were found"):
+            ret.append({"Deals":val['Deals']})
+        try:
+            lis.remove(val['Deals'])
+        except:
+            print("Exception")
+        
     if(len(lis)==0):
-        ret.append({"Deals":"No deals were found"})
+        newRes.append({"Deals":"No deals were found"})
     else:
         for val in lis:
+            print(val)
             newRes.append({"Deals":val})
         
     text[1] = ret

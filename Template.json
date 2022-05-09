@@ -1,19 +1,61 @@
-[{
-    "Query": "",
-     "Time": 1
-    
-    
-},
 [
     {
-       
-        "deal":"Routers"
+       "Query": "phone",
+       "Time": "1"
     },
-    {
-        "deal":"Routers"
-    },
-    {   
-        "deal":"Routers"
-    }
-]
-]
+    [
+       {
+          "Deals": "Wells Fargo Active Cash\u00ae Card: Earn a $200 cash rewards bonus"
+       },
+       {
+          "Deals": "SAMSUNG Galaxy A53 5G A Series Unlocked 6.5\" FHD Smartphone$350"
+       },
+       {
+          "Deals": "Samsung Offers PriceMatch on upgraded trade-in value"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Premier Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Plus Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Priority Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Hotels.com\u00ae Rewards Visa\u00ae Credit Card"
+       },
+       {
+          "Deals": "Wells Fargo ReflectSM Card"
+       },
+       {
+          "Deals": "No deals were found"
+       }
+    ],
+    [
+       {
+          "Deals": "Wells Fargo Active Cash\u00ae Card: Earn a $200 cash rewards bonus"
+       },
+       {
+          "Deals": "SAMSUNG Galaxy A53 5G A Series Unlocked 6.5\" FHD Smartphone$350"
+       },
+       {
+          "Deals": "Samsung Offers PriceMatch on upgraded trade-in value"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Premier Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Plus Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Southwest Rapid Rewards\u00ae Priority Credit Card- Earn 40,000 Bonus Points after purchase"
+       },
+       {
+          "Deals": "Hotels.com\u00ae Rewards Visa\u00ae Credit Card"
+       },
+       {
+          "Deals": "Wells Fargo ReflectSM Card"
+       }
+    ]
+ ]
