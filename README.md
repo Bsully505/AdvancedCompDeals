@@ -30,4 +30,4 @@
 
 ## Credits 
 Authors: Bryan Sullivan, Colin McNeill, Christian Colaiezzi, Henok Ketsela, and Isaac Crawford \
-Guidence: Professor Christian Duncan
+Guidance: Professor Christian Duncan
