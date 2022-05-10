@@ -1,10 +1,8 @@
-
 from flask import Flask,render_template,request
 import json
 import requests
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
-import asyncio
 
 
 
@@ -19,9 +17,6 @@ def getResponse():
     Time = postRes['Time']
     PostQuery(query)
     PostTime(Time)
-    
-    
-    #refreshTimer(Time,query)
     callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     SetDealMethod(res)
@@ -34,8 +29,6 @@ def getResponse2():
     postRes = request.get_json()
     query = postRes['Query']
     Time = postRes['Time']
-       
-    #refreshTimer(Time,query)
     callResponse = CallAPI(query,0)
     res = ParseHTML(callResponse)
     SetOldDealMethod(res)
@@ -43,7 +36,7 @@ def getResponse2():
     return "Success"
     
 @App.route('/GetQuery')
-def GetDataFromFile1():
+def GetQuery():
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     return json.dumps(text[0]['Query'])
@@ -51,15 +44,13 @@ def GetDataFromFile1():
 
 
 @App.route('/GetTime')
-def GetDataFromFile2():
+def GetTime():
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     return json.dumps(text[0]['Time'])
 
 
 def PostQuery(inserter):
-    #inserter = request.get_json['Query']
-    
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     FileOpener.close()
@@ -71,9 +62,7 @@ def PostQuery(inserter):
 
 
 
-def PostTime(inserter):
-    #inserter = request.get_json['Time']
-    
+def PostTime(inserter):   
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     FileOpener.close()
@@ -82,11 +71,6 @@ def PostTime(inserter):
     json.dump(text,FileEditer,indent=3)
     FileEditer.close()
     return "Success"
-
-def addNewDeals(list):
-    #goal is to create a new call and with that responce check if this call has any new 
-    pass
-    
 
 
 @App.route('/SetDeal',methods=['POST'])
@@ -97,9 +81,6 @@ def SetDeal():
     text = json.load(FileOpener)
     FileOpener.close()
     FileEditer = open('data.json','w')
-    #if working with request args
-    #text[1]=[{"deal":deals}]
-    #if working with getJson
     text[1] = deals
     json.dump(text, FileEditer,indent=3)
     FileEditer.close()
@@ -125,25 +106,12 @@ def SetDealMethod(lis):
 
 #appends all new deals to old deals and checks if any of the new deals are unique
 def SetOldDealMethod(lis):
-
     FileOpener = open('data.json')
     text = json.load(FileOpener)
     FileOpener.close()
     FileEditer = open('data.json','w')
     ret=text[1]
     newRes = []
-    
-    #for val in lis:
-        #print(str(len(val)))
-        #print(type(val))
-        
-    #print()
-    
-    #for val in text[2]:
-        
-        #print(str(len(val['Deals'])))
-        #print(type(val['Deals']))
-        
     OldDeals =[]
     for val in text[1]:
         if(val['Deals'] != "No deals were found"):
@@ -174,36 +142,7 @@ def SetOldDealMethod(lis):
     json.dump(text, FileEditer,indent=3)
     FileEditer.close()
     return "Successfully Set Deal"
-
-#not using 
-async def refreshTimer(time, query): #gets variables from getResponse
-    #short circuits 
-    if(Go is False):
-        print("Short Circuit")
-        return 1
-    
-    await asyncio.sleep(time) #sleeps for number of minutes input by user
-    #redo stuff from getResponse 
-    callResponse = CallAPI(query,0)
-    res = ParseHTML(callResponse)
-    SetDealMethod(res)
-    #parse req.text and then send back 
-    return refreshTimer(time, query)
-
-
-
-@App.route('/AppendDeal',methods=['GET'])
-def AppendDeal():
-    #deals = request.get_json['Deals']
-    deals = request.args.get('Deals')
-    FileOpener = open('data.json')
-    text = json.load(FileOpener)
-    FileOpener.close()
-    FileEditer = open('data.json','w')
-    json.dump(text, FileEditer,indent=3)
-    FileEditer.close()
-    return "Successfully Reset to default"
-    
+   
 
 @App.route('/SetTemplate',methods=['GET'])
 def Template():
@@ -224,8 +163,7 @@ def Template():
 def ParseHTML(str):
     # use this library to parse out the desired items HTMLParser 
     # and then return the html 
-    str = printDeals(str)
-    
+    str = returnDeals(str)
     return str
 
         
@@ -236,7 +174,7 @@ def CallAPI(query, startIndex):
     return req
 
 
-def printDeals(res):
+def returnDeals(res):
     prinres = []
     i= 0
     url = "test"
@@ -303,15 +241,11 @@ def editJson(deals):
 
 @App.route('/')
 def index():
-    
     return render_template('home.html')
 
 @App.route('/credit')
-def credit():
-    
+def credit():  
     return render_template('credit.html')
-
-
 
 
 
